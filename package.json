@@ -7,12 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type":"git",
-    "url":""
-  }
+    "type": "git",
+    "url": "https://Luzlum@bitbucket.org/Luzlum/teorikatasomoku.git"
+  },
   "author": "Luzlum",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.8.11"
+    "gulp": "^3.8.11",
+    "gulp-less": "^3.0.1",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.0"
   }
 }
