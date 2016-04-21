@@ -4,6 +4,7 @@
   "description": "teori-katasoumoku.github.io",
   "main": "gulpfile.js",
   "scripts": {
+    "start": "node --harmony $(npm bin)/gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/teori-katasoumoku/teori-katasoumoku.github.io/issues"
   },
-  "homepage": "https://teori-katasoumoku.github.io"
+  "homepage": "https://teori-katasoumoku.github.io",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0"
+  }
 }
