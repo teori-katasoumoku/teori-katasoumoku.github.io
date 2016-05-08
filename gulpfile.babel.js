@@ -1,11 +1,12 @@
 'use strict';
 
-const gulp = require('gulp');
-const gutil = require('gulp-util');
-const del = require('del');
-const jade = require('gulp-jade');
+import del from 'del';
 
-const config = require('./tasks/config');
+import gulp from 'gulp';
+import gutil from 'gulp-util';
+import jade from 'gulp-jade';
+
+import {src, dest} from './tasks/config';
 
 gulp.task('default', [
   'clean',
@@ -13,7 +14,7 @@ gulp.task('default', [
 ]);
 
 gulp.task('clean', (done) => {
-  del([config.dest()]).then(paths => {
+  del([dest()]).then(paths => {
     const deleted = paths.length === 0 ? 'Nothing.' : gutil.colors.magenta(paths.join('\n'));
     gutil.log('Deleted files and folders:\n', deleted);
     return done();
@@ -21,7 +22,7 @@ gulp.task('clean', (done) => {
 });
 
 gulp.task('jade', ['clean'], () => {
-  return gulp.src(config.src('templates', '**', '!(_)*.jade'))
+  return gulp.src(src('templates', '**', '!(_)*.jade'))
     .pipe(jade({pretty: true}))
-    .pipe(gulp.dest(config.dest()));
+    .pipe(gulp.dest(dest()));
 });
