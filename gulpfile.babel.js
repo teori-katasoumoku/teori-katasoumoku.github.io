@@ -3,27 +3,34 @@
 import del from 'del';
 
 import gulp from 'gulp';
-import gutil from 'gulp-util';
+import {log, colors} from 'gulp-util';
 import pug from 'gulp-pug';
 
 import {dest, templates} from './tasks/config';
+import {logPaths} from './tasks/paths'
 
 gulp.task('default', [
-  'clean',
   'pug'
 ]);
 
-gulp.task('clean', (done) => {
+gulp.task('clean:all', (done) => {
   del([dest]).then(paths => {
-    const deleted = paths.length === 0 ? 'Nothing.' : gutil.colors.magenta(paths.join('\n'));
-    gutil.log('Deleted files and folders:\n', deleted);
+    log('Deleted files and folders:');
+    logPaths(paths);
     return done();
   });
 });
 
-gulp.task('pug', ['clean'], () => {
+gulp.task('clean:html', (done) => {
+  del([templates.dest]).then(paths => {
+    log('Deleted files and folders:');
+    logPaths(paths);
+    return done();
+  });
+});
+
+gulp.task('pug', ['clean:html'], () => {
   return gulp.src(templates.src)
     .pipe(pug({pretty: true}))
     .pipe(gulp.dest(dest));
 });
-

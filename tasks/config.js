@@ -4,13 +4,13 @@ import path from 'path';
 
 const root = path.join(__dirname, '..');
 const joint = (...paths) => {
-  return path.join(root, ...paths);
+  return path.join(...paths);
 };
 const src = (...paths) => {
-  return joint(DIR.src, ...paths);
+  return joint(root, DIR.src, ...paths);
 };
 const dest = (...paths) => {
-  return joint(DIR.dest, ...paths);
+  return joint(root, DIR.dest, ...paths);
 };
 
 const DIR = {
@@ -23,6 +23,7 @@ const DIR = {
 
 module.exports = {
   joint: joint,
+  root: root,
   src: src(),
   dest: dest(),
   style: {
@@ -34,6 +35,7 @@ module.exports = {
     dest: dest(DIR.js)
   },
   templates: {
-    src: src(DIR.templates, '**', '!(_)*.pug')
+    src: src(DIR.templates, '**', '!(_)*.pug'),
+    dest: dest('**', '*.html')
   }
 };
