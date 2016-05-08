@@ -4,13 +4,13 @@ import del from 'del';
 
 import gulp from 'gulp';
 import gutil from 'gulp-util';
-import jade from 'gulp-jade';
+import pug from 'gulp-pug';
 
 import {dest, templates} from './tasks/config';
 
 gulp.task('default', [
   'clean',
-  'jade'
+  'pug'
 ]);
 
 gulp.task('clean', (done) => {
@@ -21,9 +21,9 @@ gulp.task('clean', (done) => {
   });
 });
 
-gulp.task('jade', ['clean'], () => {
+gulp.task('pug', ['clean'], () => {
   return gulp.src(templates.src)
-    .pipe(jade({pretty: true}))
+    .pipe(pug({pretty: true}))
     .pipe(gulp.dest(dest));
 });
 

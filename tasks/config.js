@@ -34,6 +34,6 @@ module.exports = {
     dest: dest(DIR.js)
   },
   templates: {
-    src: src(DIR.templates, '**', '!(_)*.jade')
+    src: src(DIR.templates, '**', '!(_)*.pug')
   }
 };
