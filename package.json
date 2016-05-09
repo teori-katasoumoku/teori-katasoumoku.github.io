@@ -26,6 +26,7 @@
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-pug": "^2.0.0",
+    "gulp-purifycss": "^0.2.0",
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^1.6.0"
   }

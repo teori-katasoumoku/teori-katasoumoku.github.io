@@ -7,6 +7,7 @@ import {log, colors} from 'gulp-util';
 import pug from 'gulp-pug';
 import sass from 'gulp-sass';
 import sourcemaps from 'gulp-sourcemaps';
+import purify from 'gulp-purifycss'
 
 import {dest, templates, style} from './tasks/config';
 import {logPaths} from './tasks/paths'
@@ -51,5 +52,6 @@ gulp.task('sass', ['clean:style'], () => {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write())
+    .pipe(purify([templates.dest]))
     .pipe(gulp.dest(style.dest));
 });
