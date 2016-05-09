@@ -27,7 +27,7 @@ module.exports = {
   src: src(),
   dest: dest(),
   style: {
-    src: src(DIR.style),
+    src: src(DIR.style, 'main.sass'),
     dest: dest(DIR.style)
   },
   js: {
