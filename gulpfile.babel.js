@@ -45,6 +45,17 @@ bs.use({
   }
 });
 
+const watchFn = (done) => {
+  watch(templates.WATCH_FILES, debounce(() => {
+    runSequence(['pug', 'sass']);
+  }, 400));
+  watch(styles.WATCH_FILES, debounce(() => {
+    runSequence(['sass']);
+  }, 400));
+
+  bs.init(bsOptions, done);
+};
+
 gulp.task('default', [
   'watch:dev'
 ]);
@@ -93,28 +104,5 @@ gulp.task('enable-watching', (done) => {
   done();
 });
 
-gulp.task('watch:prod', ['build'], (done) => {
-  bs.init(bsOptions);
-
-  watch(templates.WATCH_FILES, debounce(() => {
-    runSequence(['pug', 'sass']);
-  }, 400));
-  watch(styles.WATCH_FILES, debounce(() => {
-    runSequence(['sass']);
-  }, 400));
-
-  return done();
-});
-
-gulp.task('watch:dev', ['enable-watching', 'build'], (done) => {
-  bs.init(bsOptions);
-
-  watch(templates.WATCH_FILES, debounce(() => {
-    runSequence(['pug', 'sass']);
-  }, 400));
-  watch(styles.WATCH_FILES, debounce(() => {
-    runSequence(['sass']);
-  }, 400));
-
-  return done();
-});
+gulp.task('watch:prod', ['build'], watchFn);
+gulp.task('watch:dev', ['enable-watching', 'build'], watchFn);
