@@ -2,15 +2,12 @@
 
 import path from 'path';
 
-const root = path.join(__dirname, '..');
-const joint = (...paths) => {
-  return path.join(...paths);
+const rootPath = path.join(__dirname, '..');
+const srcPath = (...paths) => {
+  return joint(rootPath, DIR.src, ...paths);
 };
-const src = (...paths) => {
-  return joint(root, DIR.src, ...paths);
-};
-const dest = (...paths) => {
-  return joint(root, DIR.dest, ...paths);
+const destPath = (...paths) => {
+  return joint(rootPath, DIR.dest, ...paths);
 };
 
 const DIR = {
@@ -21,21 +18,24 @@ const DIR = {
   js: 'js'
 };
 
-module.exports = {
-  joint: joint,
-  root: root,
-  src: src(),
-  dest: dest(),
-  style: {
-    src: src(DIR.style, 'main.sass'),
-    dest: dest(DIR.style)
-  },
-  js: {
-    src: src(DIR.js),
-    dest: dest(DIR.js)
-  },
-  templates: {
-    src: src(DIR.templates, '**', '!(_)*.pug'),
-    dest: dest('**', '*.html')
-  }
+export const joint = (...paths) => {
+  return path.join(...paths);
+};
+export const ROOT = rootPath;
+export const SRC = srcPath();
+export const DEST = destPath();
+export const styles = {
+  SRC: srcPath(DIR.styles, 'main.sass'),
+  DEST: destPath(DIR.styles),
+  WATCH_FILES: srcPath(DIR.styles, '**', '*.+(sass|scss|css)')
+};
+export const js = {
+  SRC: srcPath(DIR.js),
+  DEST: destPath(DIR.js),
+  WATCH_FILES: srcPath(DIR.js, '**', '*.js')
+};
+export const templates = {
+  SRC: srcPath(DIR.templates, '**', '!(_)*.pug'),
+  DEST: destPath('**', '*.html'),
+  WATCH_FILES: srcPath(DIR.templates, '**', '*.pug')
 };
