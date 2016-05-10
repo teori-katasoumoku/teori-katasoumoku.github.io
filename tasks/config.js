@@ -17,7 +17,7 @@ const DIR = {
   src: 'src',
   dest: 'public',
   templates: 'templates',
-  style: 'style',
+  styles: 'styles',
   js: 'js'
 };
 
