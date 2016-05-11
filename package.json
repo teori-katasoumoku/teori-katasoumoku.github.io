@@ -30,6 +30,7 @@
     "browser-sync": "^2.12.7",
     "browser-sync-close-hook": "^1.0.5",
     "browserify": "^13.0.1",
+    "deep-freeze": "0.0.1",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",

@@ -2,5 +2,5 @@
 
 import module from './module';
 
-console.log('main.js');
+console.log('entry.js');
 module();

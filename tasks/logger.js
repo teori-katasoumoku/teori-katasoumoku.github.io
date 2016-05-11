@@ -5,7 +5,7 @@ import path from 'path';
 import {log, colors} from 'gulp-util';
 const {magenta} = colors;
 
-import {ROOT} from './config';
+import {rootDir} from './config';
 
 export default class Logger {
   static logPaths(paths) {
@@ -13,7 +13,7 @@ export default class Logger {
       return console.log('Nothing.');
     }
     paths.forEach(p => {
-      p = path.relative(ROOT, p);
+      p = path.relative(rootDir, p);
       console.log(magenta(p));
     });
   }

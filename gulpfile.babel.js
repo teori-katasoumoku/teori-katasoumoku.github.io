@@ -1,7 +1,5 @@
 'use strict';
 
-import path from 'path';
-
 import del from 'del';
 import lodash from 'lodash';
 const {debounce} = lodash;
@@ -23,12 +21,11 @@ import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import watchify from 'watchify';
-
 import BrowserSync from 'browser-sync';
 const bs = BrowserSync.create();
 import bsCloseHook from 'browser-sync-close-hook';
 
-import {DEST, templates, styles, js} from './tasks/config';
+import {destDir, templates, styles, js} from './tasks/config';
 import Logger from './tasks/logger'
 const {logDeleted} = Logger;
 
@@ -38,7 +35,7 @@ let watching = false;
 
 const bsOptions = {
   server: {
-    baseDir: DEST
+    baseDir: destDir
   },
   browser: ['google chrome'], //'google chrome', 'firefox', 'safari'
   reloadOnRestart: true,
@@ -54,10 +51,10 @@ bs.use({
 });
 
 const watchFn = (done) => {
-  watch(templates.WATCH_FILES, debounce(() => {
+  watch(templates.watch.pattern, debounce(() => {
     runSequence(['pug', 'sass']);
   }, 400));
-  watch(styles.WATCH_FILES, debounce(() => {
+  watch(styles.watch.pattern, debounce(() => {
     runSequence(['sass']);
   }, 400));
 
@@ -76,46 +73,45 @@ gulp.task('build', [
 ]);
 
 gulp.task('clean:all', () => {
-  return del([DEST]).then(logDeleted);
+  return del([destDir]).then(logDeleted);
 });
 
 gulp.task('clean:html', () => {
-  return del([templates.DEST]).then(logDeleted);
+  return del([templates.dest.path]).then(logDeleted);
 });
 
 gulp.task('clean:style', () => {
-  return del([styles.DEST]).then(logDeleted);
+  return del([styles.dest.dir]).then(logDeleted);
 });
 
 gulp.task('clean:js', () => {
-  return del([js.DEST]).then(logDeleted);
+  return del([js.dest.dir]).then(logDeleted);
 });
 
 gulp.task('pug', ['clean:html'], () => {
-  return gulp.src(templates.SRC)
+  return gulp.src(templates.src.path)
     .pipe(gulpif(watching, plumber({errorHandler: notify.onError(ERROR_FORMAT)})))
     .pipe(pug({pretty: true}))
     .pipe(size({title: 'html:', showFiles: true}))
-    .pipe(gulp.dest(DEST))
+    .pipe(gulp.dest(templates.dest.dir))
     .pipe(bs.stream());
 });
 
 gulp.task('sass', ['pug', 'clean:style'], () => {
-  return gulp.src(styles.SRC)
+  return gulp.src(styles.src.path)
     .pipe(gulpif(watching, plumber({errorHandler: notify.onError(ERROR_FORMAT)})))
     .pipe(gulpif(watching, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
     .pipe(gulpif(watching, sourcemaps.write('./')))
-    .pipe(gulpif(!watching, purify([templates.DEST])))
+    .pipe(gulpif(!watching, purify([templates.dest.path])))
     .pipe(size({title: 'css:', showFiles: true}))
-    .pipe(gulp.dest(styles.DEST))
+    .pipe(gulp.dest(styles.dest.dir))
     .pipe(bs.stream());
 });
 
 gulp.task('browserify', ['clean:js'], (done) => {
-  const base = path.basename(js.SRC);
   const b = browserify({
-    entries: [js.SRC],
+    entries: [js.src.path],
     cache: {},
     packageCache: {},
     debug: watching
@@ -123,12 +119,12 @@ gulp.task('browserify', ['clean:js'], (done) => {
   const bundle = () => {
     b.transform('babelify', {sourceMaps: true})
       .bundle()
-      .pipe(source(base))
+      .pipe(source(js.dest.file))
       .pipe(buffer())
       .pipe(gulpif(watching, sourcemaps.init({loadMaps: true})))
       //.pipe(gulpif(watching, uglify()))
       .pipe(gulpif(watching, sourcemaps.write('./')))
-      .pipe(gulp.dest(js.DEST).on('end', done));
+      .pipe(gulp.dest(js.dest.dir).on('end', done));
   };
 
   if (watching) {
