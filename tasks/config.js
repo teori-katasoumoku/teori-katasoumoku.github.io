@@ -30,7 +30,7 @@ export const styles = {
   WATCH_FILES: srcPath(DIR.styles, '**', '*.+(sass|scss|css)')
 };
 export const js = {
-  SRC: srcPath(DIR.js),
+  SRC: srcPath(DIR.js, 'main.js'),
   DEST: destPath(DIR.js),
   WATCH_FILES: srcPath(DIR.js, '**', '*.js')
 };

@@ -1,5 +1,7 @@
 'use strict';
 
+import path from 'path';
+
 import del from 'del';
 import lodash from 'lodash';
 const {debounce} = lodash;
@@ -15,12 +17,18 @@ import watch from 'gulp-watch';
 import runSequence from 'run-sequence';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+
+import browserify from 'browserify';
+import babelify from 'babelify';
+import watchify from 'watchify';
 
 import BrowserSync from 'browser-sync';
 const bs = BrowserSync.create();
 import bsCloseHook from 'browser-sync-close-hook';
 
-import {DEST, templates, styles} from './tasks/config';
+import {DEST, templates, styles, js} from './tasks/config';
 import Logger from './tasks/logger'
 const {logDeleted} = Logger;
 
@@ -63,6 +71,7 @@ gulp.task('default', [
 gulp.task('build', [
   'clean:all',
   'pug',
+  'browserify',
   'sass'
 ]);
 
@@ -76,6 +85,10 @@ gulp.task('clean:html', () => {
 
 gulp.task('clean:style', () => {
   return del([styles.DEST]).then(logDeleted);
+});
+
+gulp.task('clean:js', () => {
+  return del([js.DEST]).then(logDeleted);
 });
 
 gulp.task('pug', ['clean:html'], () => {
@@ -92,11 +105,38 @@ gulp.task('sass', ['pug', 'clean:style'], () => {
     .pipe(gulpif(watching, plumber({errorHandler: notify.onError(ERROR_FORMAT)})))
     .pipe(gulpif(watching, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulpif(watching, sourcemaps.write('../map')))
+    .pipe(gulpif(watching, sourcemaps.write('./')))
     .pipe(gulpif(!watching, purify([templates.DEST])))
     .pipe(size({title: 'css:', showFiles: true}))
     .pipe(gulp.dest(styles.DEST))
     .pipe(bs.stream());
+});
+
+gulp.task('browserify', ['clean:js'], (done) => {
+  const base = path.basename(js.SRC);
+  const b = browserify({
+    entries: [js.SRC],
+    cache: {},
+    packageCache: {},
+    debug: watching
+  });
+  const bundle = () => {
+    b.transform('babelify', {sourceMaps: true})
+      .bundle()
+      .pipe(source(base))
+      .pipe(buffer())
+      .pipe(gulpif(watching, sourcemaps.init({loadMaps: true})))
+      //.pipe(gulpif(watching, uglify()))
+      .pipe(gulpif(watching, sourcemaps.write('./')))
+      .pipe(gulp.dest(js.DEST).on('end', done));
+  };
+
+  if (watching) {
+    b.plugin(watchify);
+    b.on('update', bundle);
+  }
+
+  return bundle();
 });
 
 gulp.task('enable-watching', (done) => {
