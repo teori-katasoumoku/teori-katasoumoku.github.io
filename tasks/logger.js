@@ -19,7 +19,7 @@ export default class Logger {
   }
 
   static logDeleted(paths) {
-    log('Deleted files and folders:');
+    console.log('Deleted files and folders:');
     Logger.logPaths(paths);
   }
 };
