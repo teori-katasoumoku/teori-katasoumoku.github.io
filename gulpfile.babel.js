@@ -11,6 +11,7 @@ import buildJs from './tasks/gulp/build-js';
 
 let watching = false;
 
+Logger.reformatGulpLog();
 
 gulp.task('default', [
   'watch:dev'
