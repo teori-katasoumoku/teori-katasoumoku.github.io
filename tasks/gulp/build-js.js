@@ -1,6 +1,5 @@
 'use strict';
 
-import fs from 'fs';
 import gulp from 'gulp';
 import sourcemaps from 'gulp-sourcemaps';
 import size from 'gulp-size';
@@ -10,16 +9,18 @@ import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import watchify from 'watchify';
+import BrowserSync from 'browser-sync';
 
-import {js} from '../config';
+import {js, server} from '../config';
+import mode from '../mode';
 
-export default function (watching, callback) {
+export default function () {
   const bs = BrowserSync.get(server.name);
   const bundler = browserify({
     entries: [js.src.path],
     cache: {},
     packageCache: {},
-    debug: watching
+    debug: mode.watching
   }).transform('babelify', {sourceMaps: true});
 
   const bundle = () => {
@@ -30,15 +31,15 @@ export default function (watching, callback) {
       })
       .pipe(source(js.dest.file))
       .pipe(buffer())
-      .pipe(gulpif(watching, sourcemaps.init({loadMaps: true})))
+      .pipe(gulpif(mode.watching, sourcemaps.init({loadMaps: true})))
       //.pipe(gulpif(watching, uglify()))
-      .pipe(gulpif(watching, sourcemaps.write('./')))
+      .pipe(gulpif(mode.watching, sourcemaps.write('./')))
       .pipe(size({title: 'js  :', showFiles: true}))
       .pipe(gulp.dest(js.dest.dir))
       .pipe(bs.stream());
   };
 
-  if (watching) {
+  if (mode.watching) {
     bundler.plugin(watchify);
     bundler.on('update', bundle);
   }

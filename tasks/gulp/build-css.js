@@ -11,9 +11,11 @@ import sourcemaps from 'gulp-sourcemaps';
 import BrowserSync from 'browser-sync';
 
 import {templates, styles, server, notice} from '../config';
+import mode from '../mode';
 
-export default function (watching) {
+export default function () {
   const bs = BrowserSync.get(server.name);
+  const watching = mode.watching;
 
   return gulp.src(styles.src.path)
     .pipe(gulpif(watching, plumber({

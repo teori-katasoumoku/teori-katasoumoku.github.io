@@ -2,14 +2,13 @@
 
 import gulp from 'gulp';
 
+import mode from './tasks/mode';
 import Logger from './tasks/logger';
 import cleaner from './tasks/gulp/cleaner';
 import watch from './tasks/gulp/watch';
 import buildHtml from './tasks/gulp/build-html';
 import buildCss from './tasks/gulp/build-css';
 import buildJs from './tasks/gulp/build-js';
-
-let watching = false;
 
 Logger.reformatGulpLog();
 
@@ -30,19 +29,24 @@ gulp.task('clean:style', cleaner.style);
 gulp.task('clean:js', cleaner.js);
 
 gulp.task('build:html', ['clean:html'], () => {
-  return buildHtml(watching);
+  return buildHtml();
 });
 
 gulp.task('build:css', ['build:html', 'clean:style'], () => {
-  return buildCss(watching);
+  return buildCss();
 });
 
-gulp.task('build:js', ['clean:js'], (done) => {
-  return buildJs(watching, done);
+gulp.task('build:js', ['clean:js'], () => {
+  return buildJs();
 });
 
 gulp.task('enable-watching', (done) => {
-  watching = true;
+  mode.watching = true;
+  done();
+});
+
+gulp.task('disable-watching', (done) => {
+  mode.watching = false;
   done();
 });
 

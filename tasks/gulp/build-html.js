@@ -9,12 +9,13 @@ import gulpif from 'gulp-if';
 import BrowserSync from 'browser-sync';
 
 import {templates, server, notice} from '../config';
+import mode from '../mode';
 
-export default function (watching) {
+export default function () {
   const bs = BrowserSync.get(server.name);
 
   return gulp.src(templates.src.path)
-    .pipe(gulpif(watching, plumber({
+    .pipe(gulpif(mode.watching, plumber({
       errorHandler: notify.onError(notice.errorFormat)
     })))
     .pipe(pug({pretty: true}))
