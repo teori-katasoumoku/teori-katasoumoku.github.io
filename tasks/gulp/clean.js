@@ -1,7 +1,7 @@
 'use strict';
 
 import del from 'del';
-import {destDir, templates, styles, js} from '../config';
+import {destDir, templates, styles, js, images} from '../config';
 import {logDeleted} from '../log';
 
 export function cleanAll() {
@@ -15,6 +15,11 @@ export function cleanHtml() {
 export function cleanStyle() {
   return del([styles.dest.dir]).then(logDeleted);
 }
+
 export function cleanJs() {
   return del([js.dest.dir]).then(logDeleted);
+}
+
+export function cleanImages() {
+  return del([images.dest.dir]).then(logDeleted);
 }

@@ -9,7 +9,8 @@ const dir = {
   dest: 'public',
   templates: 'templates',
   styles: 'styles',
-  js: 'js'
+  js: 'js',
+  images: 'images'
 };
 
 const pathConfig = {
@@ -51,6 +52,19 @@ const pathConfig = {
     watch: {
       pattern: srcPath(dir.js, '**', '*.js')
     }
+  },
+  images: {
+    src: {
+      dir: srcPath(dir.images),
+      file: joint('**', '*.+(jpg|jpeg|gif|png|svg)')
+    },
+    dest: {
+      dir: destPath(dir.images),
+      file: ''
+    },
+    watch: {
+      pattern: srcPath(dir.images, '**', '*.+(jpg|jpeg|gif|png|svg)')
+    }
   }
 };
 
@@ -91,6 +105,7 @@ export const destDir = destPath();
 export const templates = pathConfig.templates;
 export const styles = pathConfig.styles;
 export const js = pathConfig.js;
+export const images = pathConfig.images;
 export const server = serverConfig;
 export const notice = noticeConfig;
 
