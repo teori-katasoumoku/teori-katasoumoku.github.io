@@ -7,6 +7,7 @@ import BrowserSync from 'browser-sync';
 import bsCloseHook from 'browser-sync-close-hook';
 
 import {templates, styles, server} from '../config';
+import {logRebuilding as log} from '../log';
 
 const bs = BrowserSync.create(server.name);
 
@@ -18,14 +19,14 @@ bs.use({
 });
 
 export default function (done) {
-
-  gulpWatch(templates.watch.pattern, debounce(() => {
-    runSequence('build:html', 'build:css');
-  }, 400));
-
-  gulpWatch(styles.watch.pattern, debounce(() => {
-    runSequence(['build:css']);
-  }, 400));
-
+  watch(templates.watch.pattern, 'build:html', 'build:css');
+  watch(styles.watch.pattern, ['build:css']);
   bs.init(server.initOptions, done);
+}
+
+function watch(pattern, ...tasks) {
+  gulpWatch(pattern, debounce(() => {
+    log();
+    runSequence(...tasks);
+  }, 400));
 }

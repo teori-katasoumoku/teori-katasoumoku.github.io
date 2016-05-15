@@ -13,6 +13,7 @@ import BrowserSync from 'browser-sync';
 
 import {js, server} from '../config';
 import mode from '../mode';
+import {logRebuilding} from '../log';
 
 export default function () {
   const bs = BrowserSync.get(server.name);
@@ -39,9 +40,14 @@ export default function () {
       .pipe(bs.stream());
   };
 
+  const rebundle = () => {
+    logRebuilding();
+    return bundle();
+  };
+
   if (mode.watching) {
     bundler.plugin(watchify);
-    bundler.on('update', bundle);
+    bundler.on('update', rebundle);
   }
 
   return bundle();

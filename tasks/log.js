@@ -46,3 +46,7 @@ export function reformatGulpLog() {
     });
   });
 }
+
+export function logRebuilding() {
+  return console.log('\nrebuilding...');
+}
