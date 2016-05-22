@@ -68,6 +68,21 @@ const pathConfig = {
   }
 };
 
+const copyConfig = {
+  src: [],
+  dest: destPath(),
+  cleanFiles: [],
+  files: [
+    'README.md'
+  ]
+};
+copyConfig.src = copyConfig.files.map(file => {
+  return joint(root, file);
+});
+copyConfig.cleanFiles = copyConfig.files.map(file => {
+  return destPath(file)
+});
+
 const serverConfig = {
   name: 'local-server',
   initOptions: {
@@ -102,6 +117,7 @@ Object.keys(pathConfig).forEach(key => {
 
 deepFreeze(pathConfig);
 deepFreeze(noticeConfig);
+deepFreeze(copyConfig);
 
 export {joint};
 export const rootDir = root;
@@ -111,6 +127,7 @@ export const templates = pathConfig.templates;
 export const styles = pathConfig.styles;
 export const js = pathConfig.js;
 export const images = pathConfig.images;
+export const copy = copyConfig;
 export const server = serverConfig;
 export const notice = noticeConfig;
 export const deployment = deployConfig;

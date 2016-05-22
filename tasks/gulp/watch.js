@@ -6,7 +6,7 @@ import runSequence from 'run-sequence';
 import BrowserSync from 'browser-sync';
 import bsCloseHook from 'browser-sync-close-hook';
 
-import {templates, styles, images, server} from '../config';
+import {templates, styles, images, copy, server} from '../config';
 import {logRebuilding as log} from '../log';
 
 const bs = BrowserSync.create(server.name);
@@ -22,6 +22,7 @@ export default function (done) {
   watch(templates.watch.pattern, 'build:html', 'build:css');
   watch(styles.watch.pattern, ['build:css']);
   watch(images.watch.pattern, ['build:image']);
+  watch(copy.src, ['copy']);
   bs.init(server.initOptions, done);
 }
 
