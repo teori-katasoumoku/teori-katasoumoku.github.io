@@ -1,19 +1,13 @@
 teori-katasoumoku.github.io
 ====
 
-[teori-katasoumoku.github.io](https://teori-katasoumoku.github.io)
-
 ## Overview
 
-- [ ] TODO: write overview
-
-## Description
-
-- [ ] TODO: write description
+[teori-katasoumoku.github.io](https://teori-katasoumoku.github.io)
 
 ## Requirement
 
-- node.js 5+
+- node.js 6+
 
 ## Recommendation
 
@@ -23,7 +17,7 @@ teori-katasoumoku.github.io
 
 ## Install
 
-```console
+``` console
 $ git clone git@github.com:teori-katasoumoku/teori-katasoumoku.github.io.git
 $ cd teori-katasoumoku.github.io
 $ ndenv install
@@ -32,8 +26,34 @@ $ npm install
 
 ## Usage
 
+Run following to show task list:
+
+``` console
+$ npm run
 ```
+
+### Build
+
+build task for production:
+
+``` console
+$ npm run build
+```
+
+### Develop
+
+build & watch task for development:
+
+``` console
 $ npm start
+```
+
+### Deploy
+
+deployment task:
+
+```
+$ npm run deploy
 ```
 
 ## Licence
