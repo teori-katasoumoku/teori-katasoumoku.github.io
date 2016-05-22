@@ -86,6 +86,11 @@ const noticeConfig = {
   errorFormat: 'Error: <%= error.message %>'
 };
 
+const deployConfig = {
+  targetPattern: destPath('**', '*'),
+  branch: 'master'
+};
+
 Object.keys(pathConfig).forEach(key => {
   const targets = [pathConfig[key].src, pathConfig[key].dest];
   targets.forEach(target => {
@@ -108,6 +113,7 @@ export const js = pathConfig.js;
 export const images = pathConfig.images;
 export const server = serverConfig;
 export const notice = noticeConfig;
+export const deployment = deployConfig;
 
 function joint(...paths) {
   return path.join(...paths);

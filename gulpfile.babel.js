@@ -10,6 +10,7 @@ import buildHtml from './tasks/gulp/build-html';
 import buildCss from './tasks/gulp/build-css';
 import buildJs from './tasks/gulp/build-js';
 import buildImage from './tasks/gulp/build-image';
+import deploy from './tasks/gulp/deploy';
 
 reformatGulpLog();
 
@@ -38,6 +39,8 @@ gulp.task('build:image', ['clean:image'], buildImage);
 
 gulp.task('watch:prod', ['build'], watch);
 gulp.task('watch:dev', ['enable-watching', 'build'], watch);
+
+gulp.task('deploy', ['build'], deploy);
 
 gulp.task('enable-watching', (done) => {
   mode.watching = true;
