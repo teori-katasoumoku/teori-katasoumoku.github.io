@@ -1,0 +1,193 @@
+html,body,h1,h2,h3,h4,h5,h6,p,strong,section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-weight: normal;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+section {
+  display: block;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,*:before,*:after {
+  box-sizing: inherit;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+strong {
+  font-weight: bold;
+}
+
+@keyframes spin-around {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+html {
+  background: #f5f7fa;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  min-width: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-rendering: optimizeLegibility;
+}
+
+section {
+  display: block;
+}
+
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  color: #69707a;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.428571428571429;
+}
+
+a {
+  color: #1fc8db;
+  cursor: pointer;
+  text-decoration: none;
+  transition: none 86ms ease-out;
+}
+
+a:hover {
+  color: #222324;
+}
+
+strong {
+  color: #222324;
+  font-weight: 700;
+}
+
+.content:not(:last-child),.title:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.container {
+  position: relative;
+}
+
+@media screen and (min-width: 980px) {
+  .container {
+    margin: 0 auto;
+    max-width: 960px;
+  }
+}
+
+@media screen and (min-width: 1180px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+.content p:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.content h1,.content h2,.content h3,.content h4,.content h5,.content h6 {
+  color: #222324;
+  font-weight: 300;
+  line-height: 1.125;
+  margin-bottom: 20px;
+}
+
+.content h1:not(:first-child),.content h2:not(:first-child),.content h3:not(:first-child) {
+  margin-top: 40px;
+}
+
+.content h1 {
+  font-size: 2em;
+}
+
+.content h2 {
+  font-size: 1.75em;
+}
+
+.content h3 {
+  font-size: 1.5em;
+}
+
+.content h4 {
+  font-size: 1.25em;
+}
+
+.content h5 {
+  font-size: 1.125em;
+}
+
+.content h6 {
+  font-size: 1em;
+}
+
+.title {
+  font-weight: 300;
+  word-break: break-word;
+}
+
+.title a:hover {
+  border-bottom: 1px solid;
+}
+
+.title strong {
+  font-weight: 500;
+}
+
+.title {
+  color: #222324;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.title strong {
+  color: inherit;
+}
+
+.icon {
+  display: inline-block;
+  font-size: 21px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  vertical-align: top;
+  width: 24px;
+}
+
+.section {
+  background: #fff;
+  padding: 40px 20px;
+}
+
+@media screen and (min-width: 980px) {
+  .section {
+    padding: 40px 0;
+  }
+}
