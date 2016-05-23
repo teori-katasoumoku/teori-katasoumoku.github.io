@@ -50,11 +50,14 @@ $ npm start
 
 ### Deploy
 
-deployment task:
+このリポジトリは GitHub Pages site for users or organizations なので、
+公開したいページは `master` branch に push する必要があります。
 
-```
-$ npm run deploy
-```
+これは `source` branch に変更があったタイミングで CircleCI が勝手にやってくれます。
+
+* https://circleci.com/gh/teori-katasoumoku/teori-katasoumoku.github.io
+
+デプロイ対象となるファイルはビルド成果物のみで `public/` 以下のファイルが該当します。
 
 ## Licence
 
