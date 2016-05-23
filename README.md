@@ -61,7 +61,9 @@ $ npm start
 
 ## Licence
 
-© 2016 teori-katasoumoku All Rights Reserved.
+The content of this project itself is UNLICENSED,
+and the underlying source code used to format and display that content is
+licensed under the [MIT license](https://opensource.org/licenses/mit-license.php).
 
 ## Author
 
