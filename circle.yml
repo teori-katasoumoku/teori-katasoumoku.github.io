@@ -1,0 +1,14 @@
+machine:
+  timezone: Asia/Tokyo
+  node:
+    version: 6.2.0
+
+test:
+  pre:
+    - npm run build
+
+deployment:
+  production:
+    branch: source
+    commands:
+      - npm run deploy
