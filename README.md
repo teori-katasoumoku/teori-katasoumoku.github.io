@@ -61,7 +61,7 @@ $ npm start
 
 ## Licence
 
-© 2016 teori-katasoumoku All Rights Reserved.
+[LICENSE](./LICENSE)
 
 ## Author
 
