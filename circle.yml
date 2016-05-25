@@ -5,6 +5,11 @@ machine:
   node:
     version: 6.2.0
 
+general:
+  branches:
+    ignore:
+      - master
+
 test:
   pre:
     - npm run build
