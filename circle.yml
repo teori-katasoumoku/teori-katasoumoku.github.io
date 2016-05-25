@@ -1,3 +1,5 @@
+# https://circleci.com/docs/configuration/
+
 machine:
   timezone: Asia/Tokyo
   node:
