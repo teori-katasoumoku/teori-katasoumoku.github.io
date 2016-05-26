@@ -2,16 +2,16 @@
 
 import gulp from 'gulp';
 
-import mode from './tasks/mode';
-import {reformatGulpLog} from './tasks/log';
-import {cleanAll, cleanHtml, cleanJs, cleanStyle, cleanImages, cleanCopied} from './tasks/gulp/clean';
-import watch from './tasks/gulp/watch';
-import buildHtml from './tasks/gulp/build-html';
-import buildCss from './tasks/gulp/build-css';
-import buildJs from './tasks/gulp/build-js';
-import buildImage from './tasks/gulp/build-image';
-import copy from './tasks/gulp/copy';
-import deploy from './tasks/gulp/deploy';
+import mode from './lib/mode';
+import {reformatGulpLog} from './lib/log';
+import {cleanAll, cleanHtml, cleanJs, cleanStyle, cleanImages, cleanCopied} from './tasks/clean';
+import watch from './tasks/watch';
+import buildHtml from './tasks/build-html';
+import buildCss from './tasks/build-css';
+import buildJs from './tasks/build-js';
+import buildImage from './tasks/build-image';
+import copy from './tasks/copy';
+import deploy from './tasks/deploy';
 
 reformatGulpLog();
 

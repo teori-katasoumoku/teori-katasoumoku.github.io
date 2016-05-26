@@ -9,7 +9,7 @@ import gulpif from 'gulp-if';
 import BrowserSync from 'browser-sync';
 
 import {templates, server, notice} from '../config';
-import mode from '../mode';
+import mode from '../lib/mode';
 
 export default function () {
   const bs = BrowserSync.get(server.name);

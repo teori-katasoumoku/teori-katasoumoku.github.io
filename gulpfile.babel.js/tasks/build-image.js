@@ -10,7 +10,7 @@ import pngquant from 'imagemin-pngquant';
 import BrowserSync from 'browser-sync';
 
 import {images, server} from '../config';
-import mode from '../mode';
+import mode from '../lib/mode';
 
 const imageminOptions = {
   use: [pngquant({
