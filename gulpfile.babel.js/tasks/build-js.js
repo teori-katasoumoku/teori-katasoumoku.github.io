@@ -12,8 +12,8 @@ import watchify from 'watchify';
 import BrowserSync from 'browser-sync';
 
 import {js, server} from '../config';
-import mode from '../mode';
-import {logRebuilding} from '../log';
+import mode from '../lib/mode';
+import {logRebuilding} from '../lib/log';
 
 export default function () {
   const bs = BrowserSync.get(server.name);

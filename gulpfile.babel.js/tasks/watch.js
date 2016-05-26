@@ -7,7 +7,7 @@ import BrowserSync from 'browser-sync';
 import bsCloseHook from 'browser-sync-close-hook';
 
 import {templates, styles, images, copy, server} from '../config';
-import {logRebuilding as log} from '../log';
+import {logRebuilding as log} from '../lib/log';
 
 const bs = BrowserSync.create(server.name);
 

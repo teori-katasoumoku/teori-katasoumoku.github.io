@@ -2,7 +2,7 @@
 
 import del from 'del';
 import {destDir, templates, styles, js, images, copy} from '../config';
-import {logDeleted} from '../log';
+import {logDeleted} from '../lib/log';
 
 export function cleanAll() {
   return del([destDir]).then(logDeleted);

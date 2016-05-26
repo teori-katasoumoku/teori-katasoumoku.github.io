@@ -6,7 +6,7 @@ import prettyTime from 'pretty-time';
 
 import {log, colors} from 'gulp-util';
 const {cyan, magenta} = colors;
-import {rootDir} from './config';
+import {rootDir} from '../config';
 
 export function logPaths(paths) {
   if (paths.length === 0) {
