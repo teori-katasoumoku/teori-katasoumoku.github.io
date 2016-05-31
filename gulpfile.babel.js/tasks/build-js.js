@@ -7,7 +7,6 @@ import gulpif from 'gulp-if';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
-import babelify from 'babelify';
 import watchify from 'watchify';
 import BrowserSync from 'browser-sync';
 
@@ -16,12 +15,13 @@ import mode from '../lib/mode';
 import {logRebuilding} from '../lib/log';
 
 export default function () {
+  const watch = mode.watching;
   const bs = BrowserSync.get(server.name);
   const bundler = browserify({
     entries: [js.src.path],
     cache: {},
     packageCache: {},
-    debug: mode.watching
+    debug: watch
   }).transform('babelify', {sourceMaps: true});
 
   const bundle = () => {
@@ -45,7 +45,7 @@ export default function () {
     return bundle();
   };
 
-  if (mode.watching) {
+  if (watch) {
     bundler.plugin(watchify);
     bundler.on('update', rebundle);
   }
