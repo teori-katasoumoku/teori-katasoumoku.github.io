@@ -41,10 +41,20 @@ gulp.task('build:js', ['clean:js'], buildJs);
 gulp.task('build:image', ['clean:image'], buildImage);
 gulp.task('copy', ['clean:copied'], copy);
 
-gulp.task('watch:prod', ['build'], watch);
-gulp.task('watch:dev', ['enable-watching', 'build'], watch);
+gulp.task('watch:prod', ['enable-prod', 'disable-watching', 'build'], watch);
+gulp.task('watch:dev', ['disable-prod', 'enable-watching', 'build'], watch);
 
 gulp.task('deploy', ['build'], deploy);
+
+gulp.task('enable-prod', (done) => {
+  mode.prod = true;
+  done();
+});
+
+gulp.task('disable-prod', (done) => {
+  mode.prod = false;
+  done();
+});
 
 gulp.task('enable-watching', (done) => {
   mode.watching = true;
