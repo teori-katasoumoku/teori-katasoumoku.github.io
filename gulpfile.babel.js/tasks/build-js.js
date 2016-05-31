@@ -1,6 +1,7 @@
 'use strict';
 
 import gulp from 'gulp';
+import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
 import size from 'gulp-size';
 import gulpif from 'gulp-if';
@@ -15,6 +16,7 @@ import mode from '../lib/mode';
 import {logRebuilding} from '../lib/log';
 
 export default function () {
+  const prod = mode.prod;
   const watch = mode.watching;
   const bs = BrowserSync.get(server.name);
   const bundler = browserify({
@@ -32,9 +34,9 @@ export default function () {
       })
       .pipe(source(js.dest.file))
       .pipe(buffer())
-      .pipe(gulpif(mode.watching, sourcemaps.init({loadMaps: true})))
-      //.pipe(gulpif(watching, uglify()))
-      .pipe(gulpif(mode.watching, sourcemaps.write('./')))
+      .pipe(gulpif(watch, sourcemaps.init({loadMaps: true})))
+      .pipe(gulpif(prod, uglify()))
+      .pipe(gulpif(watch, sourcemaps.write('./')))
       .pipe(size({title: 'js  :', showFiles: true}))
       .pipe(gulp.dest(js.dest.dir))
       .pipe(bs.stream());
