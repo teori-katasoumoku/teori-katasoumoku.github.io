@@ -3,7 +3,7 @@
 machine:
   timezone: Asia/Tokyo
   node:
-    version: 6.2.0
+    version: 6.2.2
 
 general:
   branches:
