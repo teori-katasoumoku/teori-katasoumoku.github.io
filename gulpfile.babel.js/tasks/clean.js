@@ -24,6 +24,10 @@ export function cleanImages() {
   return del([images.dest.dir]).then(logDeleted);
 }
 
-export function cleanCopied() {
-  return del(copy.cleanFiles).then(logDeleted);
+export function cleanCopiedSrc() {
+  return del(copy.destSrcFiles).then(logDeleted);
+}
+
+export function cleanCopiedDoc() {
+  return del(copy.destDocFiles).then(logDeleted);
 }
