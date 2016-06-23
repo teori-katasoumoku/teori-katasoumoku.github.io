@@ -69,19 +69,27 @@ const pathConfig = {
 };
 
 const copyConfig = {
-  src: [],
+  get src() {
+    return this.srcFiles.map(file => srcPath(file));
+  },
+  get doc() {
+    return this.docFiles.map(file => joint(root, file));
+  },
   dest: destPath(),
-  cleanFiles: [],
-  files: [
-    'README.md'
+  get destSrcFiles() {
+    return this.srcFiles.map(file => destPath(file));
+  },
+  get destDocFiles() {
+    return this.docFiles.map(file => destPath(file));
+  },
+  srcFiles: [
+    joint('fonts', '**', '*')
+  ],
+  docFiles: [
+    'README.md',
+    'LICENSE'
   ]
 };
-copyConfig.src = copyConfig.files.map(file => {
-  return joint(root, file);
-});
-copyConfig.cleanFiles = copyConfig.files.map(file => {
-  return destPath(file)
-});
 
 const serverConfig = {
   name: 'local-server',

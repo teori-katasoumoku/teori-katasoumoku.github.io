@@ -4,13 +4,13 @@ import gulp from 'gulp';
 
 import mode from './lib/mode';
 import {reformatGulpLog} from './lib/log';
-import {cleanAll, cleanHtml, cleanJs, cleanStyle, cleanImages, cleanCopied} from './tasks/clean';
 import watch from './tasks/watch';
+import {cleanHtml, cleanJs, cleanStyle, cleanImages, cleanCopiedSrc, cleanCopiedDoc} from './tasks/clean';
 import buildHtml from './tasks/build-html';
 import buildCss from './tasks/build-css';
 import buildJs from './tasks/build-js';
 import buildImage from './tasks/build-image';
-import copy from './tasks/copy';
+import {copySrc, copyDoc} from './tasks/copy';
 import deploy from './tasks/deploy';
 
 reformatGulpLog();
@@ -28,18 +28,24 @@ gulp.task('build', [
   'copy'
 ]);
 
-gulp.task('clean:all', cleanAll);
+gulp.task('clean:all', ['clean:html', 'clean:style', 'clean:js', 'clean:image', 'clean:copiedSrc', 'clean:copiedDoc']);
 gulp.task('clean:html', cleanHtml);
 gulp.task('clean:style', cleanStyle);
 gulp.task('clean:js', cleanJs);
 gulp.task('clean:image', cleanImages);
-gulp.task('clean:copied', cleanCopied);
+gulp.task('clean:copiedSrc', cleanCopiedSrc);
+gulp.task('clean:copiedDoc', cleanCopiedDoc);
 
 gulp.task('build:html', ['clean:html'], buildHtml);
 gulp.task('build:css', ['build:html', 'clean:style'], buildCss);
 gulp.task('build:js', ['clean:js'], buildJs);
 gulp.task('build:image', ['clean:image'], buildImage);
-gulp.task('copy', ['clean:copied'], copy);
+gulp.task('copy', [
+  'copy:src',
+  'copy:doc'
+]);
+gulp.task('copy:src', ['clean:copiedSrc'], copySrc);
+gulp.task('copy:doc', ['clean:copiedDoc'], copyDoc);
 
 gulp.task('watch:prod', ['enable-prod', 'disable-watching', 'build'], watch);
 gulp.task('watch:dev', ['disable-prod', 'enable-watching', 'build'], watch);
