@@ -9,16 +9,50 @@ html.no-js(lang='ja')
       meta(name='description', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='apple-touch-icon', href='apple-touch-icon.png')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic')
     link(rel='stylesheet', href='/styles/main.css')
   body
-    main.content.container
-      != '\n<!--[if lt IE 10]>'
-      section
-        p.browserupgrade
-          | You are using an strong outdated browser. Please a(href='http://browsehappy.com/') upgrade your browser to improve your experience.
-      != '\n<![endif]-->\n'
 
-      block content
+    != '\n<!--[if lt IE 10]>'
+    section.container
+      p.browserupgrade
+        | You are using an strong outdated browser. Please a(href='http://browsehappy.com/') upgrade your browser to improve your experience.
+    != '\n<![endif]-->\n'
+
+    block content
+      main
         p Hello world! This is HTML5 Boilerplate.
+
+    footer.t-footer
+      .container
+        .row
+          .col-sm-6
+            p Connect with us on:
+            p
+              a(href='https://www.instagram.com/teorikatasoumoku/')
+                i.icon.icon-instagram
+
+          .col-sm-6
+            dl#contact
+              dt
+                abbr(title='所在地') address
+                | :&nbsp;
+              dd 鳥取県東伯郡琴浦町槻下
+              dt
+                abbr(title='電話') tel
+                | :&nbsp;
+              dd
+                a(href='tel:0858532018')
+                  | 0858-53-2018
+              dt
+                abbr(title='メール') email
+                | :&nbsp;
+              dd
+                a(href='mailto:teori.katasoumoku.info@gmail.com')
+                  | teori.katasoumoku.info@gmail.com
+
+        p
+          small
+            | &copy; 2016- teori-katasoumoku
 
     script(src='/js/bundle.js')

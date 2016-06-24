@@ -1,5 +1,126 @@
 extends _modules/_layout.pug
 
 block content
-  h1 手織かたそうもく
-  p サンプル
+  section
+    header.jumbotron.t-intro
+      .container
+        .t-intro-contents
+          h1
+            img.t-logo(src='/images/logo.svg', alt='手織かたそうもく')
+          p
+            | 手織り･型染め・草木染めを専門とする
+            br
+            | 鳥取県の工房です。
+
+    main
+      section.t-section
+        .container
+          ul.t-grid-list
+            li.t-grid-item(style='background-image:url(/images/products/bluestole03.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/cottonmuffler07.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/iphonecase02.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/karinhandkerchief03.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/stripetenugui06.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/wollestolchenmitrosengang02.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0101.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0201.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0301.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0401.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0501.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0601.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0701.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0801.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-0901.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/taschentuch-1001.jpg)')
+            li.t-grid-item(style='background-image:url(/images/products/wolletasche04.jpg)')
+
+      section#about.t-section
+        .container
+          h2 鳥取の自然からつくる布
+          p 私たちは、草木で染めた綿や羊毛を織ったり、型染めをしたりして布をつくります。
+          p そのときに出る色でそのときにできる布を、使うと少しうれしくなるように。
+
+      section#store.t-section
+        .container
+          h2 購入
+
+          p
+            a(href='https://minne.com/teorikatasm') minne
+            | &nbsp;または&nbsp;
+            a(href='http://teori.theshop.jp/') BASE
+            | &nbsp;のオンラインストアで購入できます。
+
+          .btn-toolbar.t-section-button-bar
+            a.btn.btn-ghost-dark(href='https://minne.com/teorikatasm')
+              span.glyphicon.glyphicon-shopping-cart
+              | &nbsp; minne で買う
+            a.btn.btn-ghost-dark(href='http://teori.theshop.jp/')
+              span.glyphicon.glyphicon-shopping-cart
+              | &nbsp; BASE で買う
+
+          ul
+            li どちらも基本的に商品価格は同じですが、送料が異なる場合があります
+            li 手織り・手染め製品のため、ゆがみや色むらなどがあります
+            li 草木染め製品は、変色や退色の可能性が高いです
+              ul
+                li 日光や酸・アルカリに弱いです
+                li 大事にしまっておくよりも変化を恐れずどんどん使ってもらうのがいいと思います
+                li お手入れについても各商品ページに記載してあります
+
+      section#workshops.t-section
+        .container
+          h2 教室
+          p 手織りや草木染め、型染めを体験したりはじめてみたい人に、少人数の教室を開いています。
+
+          .row
+            section.col-md-6
+              h3 日時
+              table.table.table-bordered
+                thead
+                  tr
+                    th(colspan=2) 1 回 2 時間程度
+                tbody
+                  tr.active
+                    th(width=80) 月
+                    td お休み
+                  tr
+                    th(width=80) 火-金
+                    td 10:00 - 17:00
+                  tr
+                    th(width=80) 土
+                    td 10:00 - 19:00
+                  tr.active
+                    th(width=80) 日
+                    td お休み
+
+            section.col-md-6
+              h3 コース
+              table.table.table-bordered
+                thead
+                  tr
+                    th コース
+                    th 費用
+                    th 備考
+                tbody
+                  tr
+                    th(width=80) 手織り
+                    td
+                      ul
+                        li 月 12,000 円
+                        li または 1回 3,000 円
+                        li 別途材料代
+                          ul
+                            li 1 作品 1000 〜 1500 円程度
+                    td
+                      ul
+                        li 卓上織機を使用
+                  tr
+                    th(width=80) 草木染め
+                    td(colspan=2)
+                      a(href='#contact') お問い合わせ
+                        | ください
+                  tr
+                    th(width=80) 型染め
+                    td(colspan=2)
+                      a(href='#contact') お問い合わせ
+                        | ください
