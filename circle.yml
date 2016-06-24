@@ -1,0 +1,23 @@
+# https://circleci.com/docs/configuration/
+
+machine:
+  timezone: Asia/Tokyo
+  node:
+    version: 6.2.2
+
+general:
+  branches:
+    ignore:
+      - master
+
+test:
+  pre:
+    - npm run build
+
+deployment:
+  production:
+    branch: source
+    commands:
+      - git config --global user.email "${DEPLOYMENT_GITHUB_USER_EMAIL}"
+      - git config --global user.name "${DEPLOYMENT_GITHUB_USER_NAME}"
+      - npm run deploy
