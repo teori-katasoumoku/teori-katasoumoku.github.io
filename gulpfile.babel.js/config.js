@@ -87,7 +87,8 @@ const copyConfig = {
   ],
   docFiles: [
     'README.md',
-    'LICENSE'
+    'LICENSE',
+    'circle.yml'
   ]
 };
 
