@@ -30,7 +30,7 @@ const pathConfig = {
   styles: {
     src: {
       dir: srcPath(dir.styles),
-      file: 'main.sass'
+      file: 'main.scss'
     },
     dest: {
       dir: destPath(dir.styles),

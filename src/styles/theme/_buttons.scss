@@ -1,0 +1,55 @@
+@import "_variables.scss";
+
+@mixin button-ghost-variant($color, $hover-color) {
+  color: $color;
+  background-color: transparent;
+  border-color: $color;
+  border-width: 2px;
+  transition: background-color .1s ease, color .1s ease;
+
+  &:focus,
+  &.focus {
+    color: $hover-color;
+    background-color: $color;
+  }
+  &:hover {
+    color: $hover-color;
+    background-color: $color;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: darken($hover-color, 20%);
+    background-color: $color;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: darken($hover-color, 20%);
+      background-color: $color;
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+}
+
+
+.btn {
+  font-family: $font-family-sans-serif;
+
+  .glyphicon,
+  .icomoon {
+    font-size: 120%;
+  }
+}
+
+.btn-ghost {
+  @include button-ghost-variant($text-color, #fff);
+}
+
+.btn-ghost-dark {
+  @include button-ghost-variant(#fff, $text-color);
+}
