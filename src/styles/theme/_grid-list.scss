@@ -1,0 +1,32 @@
+.t-grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  align-content: stretch;
+
+  .t-grid-item {
+    position: relative;
+    display: inherit;
+    flex: auto;
+    width: 160px;
+    height: auto;
+    margin: 8px 4px;
+    background-size: cover;
+    background-position: center;
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    @media (max-width: $screen-sm-max) {
+      &:before {
+        content: '';
+        display: block;
+        padding-top: 62%;
+      }
+    }
+
+  }
+}
