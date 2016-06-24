@@ -19,10 +19,13 @@ bs.use({
 });
 
 export default function (done) {
-  watch(templates.watch.pattern, 'build:html', 'build:css');
+  const bs = BrowserSync.get(server.name);
+
+  watch(templates.watch.pattern, 'build:html');
   watch(styles.watch.pattern, ['build:css']);
   watch(images.watch.pattern, ['build:image']);
   watch(copy.src, ['copy']);
+
   bs.init(server.initOptions, done);
 }
 

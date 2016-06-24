@@ -21,13 +21,13 @@ const imageminOptions = {
 };
 
 export default function () {
-  const bs = BrowserSync.get(server.name);
   const watching = mode.watching;
+  const bs = BrowserSync.get(server.name);
 
   return gulp.src(images.src.path)
     .pipe(gulpif(watching, plumber()))
     .pipe(imagemin(imageminOptions))
     .pipe(size({title: 'image:', showFiles: true}))
     .pipe(gulp.dest(images.dest.dir))
-    .pipe(bs.stream());
+    .pipe(gulpif(watching, bs.stream({once: true})));
 }

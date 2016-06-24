@@ -27,5 +27,5 @@ export default function () {
     .pipe(gulpif(!watching, purify([templates.dest.path])))
     .pipe(size({title: 'css :', showFiles: true}))
     .pipe(gulp.dest(styles.dest.dir))
-    .pipe(bs.stream());
+    .pipe(gulpif(watching, bs.stream({once: true})));
 }

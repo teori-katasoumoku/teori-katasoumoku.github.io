@@ -12,14 +12,15 @@ import {templates, server, notice} from '../config';
 import mode from '../lib/mode';
 
 export default function () {
+  const watching = mode.watching;
   const bs = BrowserSync.get(server.name);
-
+  
   return gulp.src(templates.src.path)
-    .pipe(gulpif(mode.watching, plumber({
+    .pipe(gulpif(watching, plumber({
       errorHandler: notify.onError(notice.errorFormat)
     })))
     .pipe(pug({pretty: true}))
     .pipe(size({title: 'html:', showFiles: true}))
     .pipe(gulp.dest(templates.dest.dir))
-    .pipe(bs.stream());
+    .pipe(gulpif(watching, bs.stream({once: true})));
 }
