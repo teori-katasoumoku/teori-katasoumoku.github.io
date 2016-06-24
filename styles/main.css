@@ -59,6 +59,34 @@ svg:not(:root) {
   overflow: hidden;
 }
 
+button {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+button {
+  overflow: visible;
+}
+
+button {
+  text-transform: none;
+}
+
+button {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -213,6 +241,12 @@ body {
   line-height: 1.42857;
   color: #363789;
   background-color: #fff;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 a {
@@ -797,12 +831,44 @@ main li ul {
   font-size: 120%;
 }
 
+.btn-ghost {
+  color: #363789;
+  background-color: transparent;
+  border-color: #363789;
+  border-width: 2px;
+  transition: background-color .1s ease, color .1s ease;
+}
+
+.btn-ghost:focus {
+  color: #fff;
+  background-color: #363789;
+}
+
+.btn-ghost:hover {
+  color: #fff;
+  background-color: #363789;
+}
+
+.btn-ghost:active,.btn-ghost.active {
+  color: #cccccc;
+  background-color: #363789;
+}
+
+.btn-ghost:active:hover,.btn-ghost:active:focus,.btn-ghost:active.focus,.btn-ghost.active:hover,.btn-ghost.active:focus {
+  color: #cccccc;
+  background-color: #363789;
+}
+
+.btn-ghost:active,.btn-ghost.active {
+  background-image: none;
+}
+
 .btn-ghost-dark {
   color: #fff;
   background-color: transparent;
   border-color: #fff;
   border-width: 2px;
-  transition: background-color .2s ease, color .2s ease;
+  transition: background-color .1s ease, color .1s ease;
 }
 
 .btn-ghost-dark:focus {
@@ -816,24 +882,17 @@ main li ul {
 }
 
 .btn-ghost-dark:active,.btn-ghost-dark.active {
-  color: #363789;
+  color: #191a40;
   background-color: #fff;
-  border-width: 3px;
 }
 
 .btn-ghost-dark:active:hover,.btn-ghost-dark:active:focus,.btn-ghost-dark:active.focus,.btn-ghost-dark.active:hover,.btn-ghost-dark.active:focus {
-  color: #363789;
+  color: #191a40;
   background-color: #fff;
 }
 
 .btn-ghost-dark:active,.btn-ghost-dark.active {
   background-image: none;
-}
-
-.btn-ghost-dark[disabled]:hover,.btn-ghost-dark[disabled]:focus {
-  color: #363789;
-  background-color: transparent;
-  border-color: #fff;
 }
 
 @font-face {
@@ -947,8 +1006,16 @@ main li ul {
   margin-bottom: 20px;
 }
 
-.t-section .btn-toolbar {
+.t-section .t-section-button-bar {
   margin: 48px auto;
+}
+
+@media (min-width: 480px) {
+  .t-section .t-section-button-bar .btn {
+    margin-right: 8px;
+    padding: 12px 32px;
+    font-size: 120%;
+  }
 }
 
 .t-section:nth-of-type(2) {
@@ -968,14 +1035,6 @@ main li ul {
 
 .t-section:nth-of-type(3) p a {
   color: #f3858e;
-}
-
-@media (min-width: 480px) {
-  .t-section:nth-of-type(3) .btn {
-    margin-right: 8px;
-    padding: 12px 32px;
-    font-size: 120%;
-  }
 }
 
 .t-section:nth-of-type(5) {
