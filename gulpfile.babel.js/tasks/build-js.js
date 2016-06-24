@@ -17,16 +17,17 @@ import {logRebuilding} from '../lib/log';
 
 export default function () {
   const prod = mode.prod;
-  const watch = mode.watching;
+  const watching = mode.watching;
   const bs = BrowserSync.get(server.name);
   const bundler = browserify({
     entries: [js.src.path],
     cache: {},
     packageCache: {},
-    debug: watch
+    debug: watching
   }).transform('babelify', {sourceMaps: true});
 
   const bundle = () => {
+    
     return bundler.bundle()
       .on('error', function (err) {
         console.error(err);
@@ -34,12 +35,12 @@ export default function () {
       })
       .pipe(source(js.dest.file))
       .pipe(buffer())
-      .pipe(gulpif(watch, sourcemaps.init({loadMaps: true})))
+      .pipe(gulpif(watching, sourcemaps.init({loadMaps: true})))
       .pipe(gulpif(prod, uglify()))
-      .pipe(gulpif(watch, sourcemaps.write('./')))
+      .pipe(gulpif(watching, sourcemaps.write('./')))
       .pipe(size({title: 'js  :', showFiles: true}))
       .pipe(gulp.dest(js.dest.dir))
-      .pipe(bs.stream());
+      .pipe(gulpif(watching, bs.stream({once: true})));
   };
 
   const rebundle = () => {
@@ -47,7 +48,7 @@ export default function () {
     return bundle();
   };
 
-  if (watch) {
+  if (watching) {
     bundler.plugin(watchify);
     bundler.on('update', rebundle);
   }
