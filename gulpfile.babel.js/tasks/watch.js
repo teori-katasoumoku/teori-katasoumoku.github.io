@@ -1,6 +1,6 @@
 'use strict';
 
-import {debounce} from 'lodash';
+import debounce from 'lodash.debounce';
 import gulpWatch from 'gulp-watch';
 import runSequence from 'run-sequence';
 import BrowserSync from 'browser-sync';
