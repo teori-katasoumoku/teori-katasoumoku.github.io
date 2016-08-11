@@ -2,6 +2,7 @@
 
 import path from 'path';
 
+import del from 'del';
 import pug from 'pug';
 import BrowserSync from 'browser-sync';
 
@@ -13,21 +14,28 @@ import tap from 'gulp-tap';
 import gulpif from 'gulp-if';
 import yaml from 'gulp-yaml';
 
-import {templates, contents, server, notice} from '../config';
+import {logDeleted} from '../lib/log';
 import mode from '../lib/mode';
+import {
+  SRC_PATH_CONTENT,
+  DEST_PATH_CONTENT,
+  getDestPath,
+  BS_SERVER_NAME,
+  NOTICE_ERROR_FORMAT
+} from '../config';
 
 export default function () {
   const watching = mode.watching;
-  const bs = BrowserSync.get(server.name);
+  const bs = BrowserSync.get(BS_SERVER_NAME);
 
-  return gulp.src(contents.src.path)
+  return gulp.src(SRC_PATH_CONTENT)
     .pipe(gulpif(watching, plumber({
-      errorHandler: notify.onError(notice.errorFormat)
+      errorHandler: notify.onError(NOTICE_ERROR_FORMAT)
     })))
     .pipe(yaml())
     .pipe(tap(applyTemplate))
     .pipe(size({title: 'html:', showFiles: true}))
-    .pipe(gulp.dest(templates.dest.dir))
+    .pipe(gulp.dest(DEST_PATH_CONTENT))
     .pipe(gulpif(watching, bs.stream({once: true})));
 }
 
@@ -44,4 +52,8 @@ function applyTemplate(dataFile) {
 
   dataFile.path = path.format(parsedPath);
   dataFile.contents = new Buffer(compiled, 'utf8');
+}
+
+export function cleanHtml() {
+  return del([getDestPath('**', '*.html')]).then(logDeleted);
 }

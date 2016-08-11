@@ -1,167 +1,71 @@
 'use strict';
 
 import path from 'path';
-import deepFreeze from 'deep-freeze';
 
-const root = path.join(__dirname, '..');
-const dir = {
-  src: 'src',
-  dest: 'public',
-  templates: 'templates',
-  contents: 'contents',
-  styles: 'styles',
-  js: 'js',
-  images: 'images'
+export const ROOT_PATH = path.join(__dirname, '..');
+
+export const DIR_SRC = 'src';
+export const DIR_DEST = 'public';
+export const DIR_TEMPLATE = 'templates';
+export const DIR_CONTENT = 'contents';
+export const DIR_STYLE = 'styles';
+export const DIR_SCRIPT = 'scripts';
+export const DIR_IMAGE = 'images';
+export const DIR_FONT = 'fonts';
+
+const joint = (...paths) => path.join(...paths);
+const getSrcPath = (...paths) => joint(ROOT_PATH, DIR_SRC, ...paths);
+export const getDestPath = (...paths) => joint(ROOT_PATH, DIR_DEST, ...paths);
+
+export const SCRIPT_ENTRY_BASENAME = 'entry';
+export const SCRIPT_BUNDLE_BASENAME = 'bundle';
+
+export const DOC_FILES = [
+  'README.md',
+  'LICENSE',
+  'circle.yml'
+];
+
+export const SRC_PATH = getSrcPath();
+export const SRC_PATH_CONTENT = getSrcPath(DIR_CONTENT, '**', '*.+(yml|yaml)');
+export const SRC_PATH_STYLE = getSrcPath(DIR_STYLE, 'main.scss');
+export const SRC_PATH_SCRIPT = getSrcPath(DIR_SCRIPT, `${SCRIPT_ENTRY_BASENAME}.js`);
+export const SRC_PATH_IMAGE = getSrcPath(DIR_IMAGE, '**', '*.+(jpg|jpeg|gif|png|svg)');
+export const SRC_PATH_FONT = getSrcPath(DIR_FONT, '**', '*');
+export const SRC_PATHS_DOC = DOC_FILES.map(file => joint(ROOT_PATH, file));
+
+export const DEST_PATH = getDestPath();
+export const DEST_PATH_CONTENT = getDestPath();
+export const DEST_PATH_STYLE = getDestPath(DIR_STYLE);
+export const DEST_PATH_SCRIPT = getDestPath(DIR_SCRIPT);
+export const DEST_PATH_IMAGE = getDestPath(DIR_IMAGE);
+export const DEST_PATH_FONT = getDestPath(DIR_FONT);
+export const DEST_PATH_DOC = getDestPath();
+
+export const WATCH_PATTERN_TEMPLATE = getSrcPath(DIR_TEMPLATE, '**', '*.pug');
+export const WATCH_PATTERN_CONTENT = getSrcPath(DIR_CONTENT, '**', '*.+(yml|yaml)');
+export const WATCH_PATTERN_STYLE = getSrcPath(DIR_STYLE, '**', '*.+(css|scss|sass)');
+export const WATCH_PATTERN_IMAGE = getSrcPath(DIR_IMAGE, '**', '*.+(jpg|jpeg|gif|png|svg)');
+export const WATCH_PATTERN_FONT = SRC_PATH_FONT;
+export const WATCH_PATTERNS_DOC = SRC_PATHS_DOC;
+
+// BrowserSync
+export const BS_SERVER_NAME = 'local-server';
+export const BS_INIT_OPTIONS = {
+  // https://www.browsersync.io/docs/options/
+  server: {
+    baseDir: DEST_PATH,
+    directory: true
+  },
+  browser: ['google chrome'], //'google chrome', 'firefox', 'safari'
+  reloadOnRestart: true,
+  reloadDelay: 100,
+  reloadDebounce: 100
 };
 
-const pathConfig = {
-  templates: {
-    src: {
-      dir: srcPath(dir.templates),
-      file: joint('**', '!(_)*.pug')
-    },
-    dest: {
-      dir: destPath(),
-      file: joint('**', '*.html')
-    },
-    watch: {
-      pattern: srcPath(dir.templates, '**', '*.pug')
-    }
-  },
-  contents: {
-    src: {
-      dir: srcPath(dir.contents),
-      file: joint('**', '*.+(yml|yaml)')
-    },
-    dest: {
-      dir: destPath(),
-      file: joint('**', '*.html')
-    },
-    watch: {
-      pattern: srcPath(dir.contents, '**', '*.+(yml|yaml)')
-    }
-  },
-  styles: {
-    src: {
-      dir: srcPath(dir.styles),
-      file: 'main.scss'
-    },
-    dest: {
-      dir: destPath(dir.styles),
-      file: ''
-    },
-    watch: {
-      pattern: srcPath(dir.styles, '**', '*.+(sass|scss|css)')
-    }
-  },
-  js: {
-    src: {
-      dir: srcPath(dir.js),
-      file: 'entry.js'
-    },
-    dest: {
-      dir: destPath(dir.js),
-      file: 'bundle.js'
-    },
-    watch: {
-      pattern: srcPath(dir.js, '**', '*.js')
-    }
-  },
-  images: {
-    src: {
-      dir: srcPath(dir.images),
-      file: joint('**', '*.+(jpg|jpeg|gif|png|svg)')
-    },
-    dest: {
-      dir: destPath(dir.images),
-      file: ''
-    },
-    watch: {
-      pattern: srcPath(dir.images, '**', '*.+(jpg|jpeg|gif|png|svg)')
-    }
-  }
-};
+// notice
+export const NOTICE_ERROR_FORMAT = 'Error: <%= error.message %>';
 
-const copyConfig = {
-  get src() {
-    return this.srcFiles.map(file => srcPath(file));
-  },
-  get doc() {
-    return this.docFiles.map(file => joint(root, file));
-  },
-  dest: destPath(),
-  get destSrcFiles() {
-    return this.srcFiles.map(file => destPath(file));
-  },
-  get destDocFiles() {
-    return this.docFiles.map(file => destPath(file));
-  },
-  srcFiles: [
-    joint('fonts', '**', '*')
-  ],
-  docFiles: [
-    'README.md',
-    'LICENSE',
-    'circle.yml'
-  ]
-};
-
-const serverConfig = {
-  name: 'local-server',
-  initOptions: {
-    // https://www.browsersync.io/docs/options/
-    server: {
-      baseDir: destPath()
-    },
-    browser: ['google chrome'], //'google chrome', 'firefox', 'safari'
-    reloadOnRestart: true,
-    reloadDelay: 100,
-    reloadDebounce: 100
-  }
-};
-
-const noticeConfig = {
-  errorFormat: 'Error: <%= error.message %>'
-};
-
-const deployConfig = {
-  targetPattern: destPath('**', '*'),
-  branch: 'master'
-};
-
-Object.keys(pathConfig).forEach(key => {
-  const targets = [pathConfig[key].src, pathConfig[key].dest];
-  targets.forEach(target => {
-    Object.defineProperty(target, 'path', {
-      get: function () { return joint(this.dir, this.file); }
-    });
-  });
-});
-
-deepFreeze(pathConfig);
-deepFreeze(noticeConfig);
-deepFreeze(copyConfig);
-
-export {joint};
-export const rootDir = root;
-export const srcDir = srcPath();
-export const destDir = destPath();
-export const templates = pathConfig.templates;
-export const contents = pathConfig.contents;
-export const styles = pathConfig.styles;
-export const js = pathConfig.js;
-export const images = pathConfig.images;
-export const copy = copyConfig;
-export const server = serverConfig;
-export const notice = noticeConfig;
-export const deployment = deployConfig;
-
-function joint(...paths) {
-  return path.join(...paths);
-}
-function srcPath(...paths) {
-  return joint(root, dir.src, ...paths);
-}
-function destPath(...paths) {
-  return joint(root, dir.dest, ...paths);
-}
+// deploy
+export const DEPLOY_TARGET_PATTERN = getDestPath('**', '*');
+export const DEPLOY_TARGET_BRANCH = 'master';

@@ -5,12 +5,11 @@ import gulp from 'gulp';
 import mode from './lib/mode';
 import {reformatGulpLog} from './lib/log';
 import watch from './tasks/watch';
-import {cleanHtml, cleanJs, cleanStyle, cleanImages, cleanCopiedSrc, cleanCopiedDoc} from './tasks/clean';
-import buildHtml from './tasks/build-html';
-import buildCss from './tasks/build-css';
-import buildJs from './tasks/build-js';
-import buildImage from './tasks/build-image';
-import {copySrc, copyDoc} from './tasks/copy';
+import buildHtml, {cleanHtml} from './tasks/build-html';
+import buildStyle, {cleanStyle} from './tasks/build-style';
+import buildScript, {cleanScript} from './tasks/build-script';
+import buildImage, {cleanImage} from './tasks/build-image';
+import {copyFont, copyDoc, cleanCopiedFont, cleanCopiedDoc} from './tasks/copy';
 import deploy from './tasks/deploy';
 
 reformatGulpLog();
@@ -22,29 +21,29 @@ gulp.task('default', [
 gulp.task('build', [
   'clean:all',
   'build:html',
-  'build:js',
-  'build:css',
+  'build:script',
+  'build:style',
   'build:image',
   'copy'
 ]);
 
-gulp.task('clean:all', ['clean:html', 'clean:style', 'clean:js', 'clean:image', 'clean:copiedSrc', 'clean:copiedDoc']);
+gulp.task('clean:all', ['clean:html', 'clean:style', 'clean:script', 'clean:image', 'clean:copiedFont', 'clean:copiedDoc']);
 gulp.task('clean:html', cleanHtml);
 gulp.task('clean:style', cleanStyle);
-gulp.task('clean:js', cleanJs);
-gulp.task('clean:image', cleanImages);
-gulp.task('clean:copiedSrc', cleanCopiedSrc);
+gulp.task('clean:script', cleanScript);
+gulp.task('clean:image', cleanImage);
+gulp.task('clean:copiedFont', cleanCopiedFont);
 gulp.task('clean:copiedDoc', cleanCopiedDoc);
 
 gulp.task('build:html', ['clean:html'], buildHtml);
-gulp.task('build:css', ['build:html', 'clean:style'], buildCss);
-gulp.task('build:js', ['clean:js'], buildJs);
+gulp.task('build:style', ['build:html', 'clean:style'], buildStyle);
+gulp.task('build:script', ['clean:script'], buildScript);
 gulp.task('build:image', ['clean:image'], buildImage);
 gulp.task('copy', [
-  'copy:src',
+  'copy:font',
   'copy:doc'
 ]);
-gulp.task('copy:src', ['clean:copiedSrc'], copySrc);
+gulp.task('copy:font', ['clean:copiedFont'], copyFont);
 gulp.task('copy:doc', ['clean:copiedDoc'], copyDoc);
 
 gulp.task('watch:prod', ['enable-prod', 'disable-watching', 'build'], watch);
