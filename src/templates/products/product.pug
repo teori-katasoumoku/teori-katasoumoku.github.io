@@ -1,6 +1,62 @@
 extends ../_layout.pug
 
 block content
+
   main
     section.container
-      p #{name}
+      h1 #{name}
+
+      ul.list-unstyled
+        each image in images
+          li
+            img(src=image)
+
+      section
+        h3 購入
+        p #{price} 円
+        ul
+          each link in links_to_buy
+            li
+              a(href=link.uri) #{link.label}
+
+      section
+        h3 説明
+        p !{description}
+
+      section
+        h3 使用上の注意
+        p !{usage_note}
+
+      section
+        h3 詳細
+        table.table.table-bordered
+          tr
+            th サイズ
+            if thickness
+              td 縦 #{height} x 横 #{width} x 厚 #{thickness} (cm)
+            else
+              td 縦 #{height} x 横 #{width} (cm)
+          tr
+            th 重さ
+            td #{weight} (g)
+          tr
+            th 素材
+            td
+              ul
+                each material in materials
+                  li #{material}
+          tr
+            th 染色方法
+            td #{dye_type}
+          tr
+            th 染色材料
+            td
+              ul
+              each dye in dye_materials
+                li #{dye}
+          tr
+            th 技法
+            td
+              ul
+                each method in methods
+                  li #{method}
