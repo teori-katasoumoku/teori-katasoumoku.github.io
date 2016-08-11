@@ -39,12 +39,17 @@ export default function () {
     .pipe(gulpif(watching, bs.stream({once: true})));
 }
 
+export function cleanHtml() {
+  return del([getDestPath('**', '*.html')]).then(logDeleted);
+}
+
 function applyTemplate(dataFile) {
   const parsedData = JSON.parse(dataFile.contents.toString());
   const parsedPath = path.parse(dataFile.path);
+  const contents = replaceLineBreakToHtml(parsedData.contents);
   const compiled = pug.compileFile(parsedData.template, {
     pretty: true
-  })(parsedData.contents);
+  })(contents);
 
   parsedPath.base = `${parsedData.id}.html`;
   parsedPath.ext = '.html';
@@ -54,6 +59,11 @@ function applyTemplate(dataFile) {
   dataFile.contents = new Buffer(compiled, 'utf8');
 }
 
-export function cleanHtml() {
-  return del([getDestPath('**', '*.html')]).then(logDeleted);
+function replaceLineBreakToHtml(obj){
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key) && typeof obj[key] === 'string') {
+      obj[key] = obj[key].replace(/\n/g, '<br>');
+    }
+  }
+  return obj;
 }
