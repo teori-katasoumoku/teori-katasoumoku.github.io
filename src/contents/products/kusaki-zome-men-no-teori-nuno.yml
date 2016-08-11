@@ -1,0 +1,39 @@
+template: src/templates/products/product.pug
+id: kusaki-zome-men-no-teori-nuno
+contents:
+  name: 草木染め綿の手織り布
+  images:
+    - /images/products/bluestole03.jpg
+    - /images/products/cottonmuffler07.jpg
+    - /images/products/iphonecase02.jpg
+  price: 15000
+  links_to_buy:
+    -
+      label: minnne
+      uri: https://minne.com/items/5293812
+  description: |
+    首まわりにさらっと巻ける、夏にも使える布を織りました。
+    さらさらとした風合いでハリがありながら、くったりとしたやわらかさがあります。
+    身につける用途以外にも、テーブルセンターなどとして使うのも良いかもしれません。
+
+    桜で染めた糸を3色と、葛で染めた緑の糸を使用しています。
+  usage_note: |
+    ドライクリーニングをおすすめします。
+    手洗いをする際は、色落ちや縮みを減らすために、ぬるま湯でやさしく洗ってください。洗剤を使う場合は中性洗剤を使ってください。
+    保管するときは色あせを進ませないために直射日光を避けてください。
+
+    手織り製品のため、ゆがみ等があります。
+    また、天然染料を使っているので、制作条件や使用環境によっては色褪せや変色の可能性が化学染料よりも高いです。大事にしまっておくのではなく、変化を怖がらずにどんどん使ってもらうのがいちばんいいと思います。
+  height: 200
+  width: 1850
+  thickness: null
+  weight: 60
+  materials:
+    - 綿 100 %
+  dye_type: 植物染料
+  dye_materials:
+    - 桜
+    - 葛
+  methods:
+    - 草木染め
+    - 手織り (クローズドリード卓上織機)

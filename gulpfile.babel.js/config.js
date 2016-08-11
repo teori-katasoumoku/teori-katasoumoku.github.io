@@ -8,6 +8,7 @@ const dir = {
   src: 'src',
   dest: 'public',
   templates: 'templates',
+  contents: 'contents',
   styles: 'styles',
   js: 'js',
   images: 'images'
@@ -25,6 +26,19 @@ const pathConfig = {
     },
     watch: {
       pattern: srcPath(dir.templates, '**', '*.pug')
+    }
+  },
+  contents: {
+    src: {
+      dir: srcPath(dir.contents),
+      file: joint('**', '*.+(yml|yaml)')
+    },
+    dest: {
+      dir: destPath(),
+      file: joint('**', '*.html')
+    },
+    watch: {
+      pattern: srcPath(dir.contents, '**', '*.+(yml|yaml)')
     }
   },
   styles: {
@@ -133,6 +147,7 @@ export const rootDir = root;
 export const srcDir = srcPath();
 export const destDir = destPath();
 export const templates = pathConfig.templates;
+export const contents = pathConfig.contents;
 export const styles = pathConfig.styles;
 export const js = pathConfig.js;
 export const images = pathConfig.images;
