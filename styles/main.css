@@ -739,7 +739,7 @@ table td[class*="col-"],table th[class*="col-"] {
   user-select: none;
 }
 
-.btn:focus,.btn:active:focus,.btn:active.focus,.btn.active:focus {
+.btn:focus,.btn:active:focus,.btn.active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
@@ -789,7 +789,7 @@ table td[class*="col-"],table th[class*="col-"] {
   border-color: #269abc;
 }
 
-.btn-info:active:hover,.btn-info:active:focus,.btn-info:active.focus,.btn-info.active:hover,.btn-info.active:focus {
+.btn-info:active:hover,.btn-info:active:focus,.btn-info.active:hover,.btn-info.active:focus {
   color: #fff;
   background-color: #269abc;
   border-color: #1b6d85;
@@ -966,7 +966,7 @@ main li ul {
   background-color: #363789;
 }
 
-.btn-ghost:active:hover,.btn-ghost:active:focus,.btn-ghost:active.focus,.btn-ghost.active:hover,.btn-ghost.active:focus {
+.btn-ghost:active:hover,.btn-ghost:active:focus,.btn-ghost.active:hover,.btn-ghost.active:focus {
   color: #cccccc;
   background-color: #363789;
 }
@@ -998,7 +998,7 @@ main li ul {
   background-color: #fff;
 }
 
-.btn-ghost-dark:active:hover,.btn-ghost-dark:active:focus,.btn-ghost-dark:active.focus,.btn-ghost-dark.active:hover,.btn-ghost-dark.active:focus {
+.btn-ghost-dark:active:hover,.btn-ghost-dark:active:focus,.btn-ghost-dark.active:hover,.btn-ghost-dark.active:focus {
   color: #191a40;
   background-color: #fff;
 }
@@ -1122,9 +1122,13 @@ main li ul {
   margin: 48px auto;
 }
 
+.t-section .t-section-button-bar .btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
 @media (min-width: 480px) {
   .t-section .t-section-button-bar .btn {
-    margin-right: 8px;
     padding: 12px 32px;
     font-size: 120%;
   }
