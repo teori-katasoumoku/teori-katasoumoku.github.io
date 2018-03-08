@@ -57,8 +57,9 @@
   .t-section-button-bar {
     margin: 48px auto;
     .btn {
+      margin-right: 8px;
+      margin-bottom: 8px;
       @media (min-width: $screen-xs-min) {
-        margin-right: 8px;
         padding: 12px 32px;
         font-size: 120%;
       }
