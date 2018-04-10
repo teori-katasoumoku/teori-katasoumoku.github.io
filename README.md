@@ -61,9 +61,7 @@ $ npm start
 
 ## Licence
 
-The content of this project itself is UNLICENSED,
-and the underlying source code used to format and display that content is
-licensed under the [MIT license](https://opensource.org/licenses/mit-license.php).
+[LICENSE](./LICENSE)
 
 ## Author
 
